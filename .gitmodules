@@ -1,9 +1,3 @@
-[submodule "WSSWAML/SparkleDroid"]
-	path = WSSWAML/SparkleDroid
-	url = https://github.com/donaldmunro/SparkleDroid
-[submodule "WSSWAML/SPARQL-JAVA"]
-	path = WSSWAML/SPARQL-JAVA
-	url = https://github.com/BorderCloud/SPARQL-JAVA
 [submodule "WSSWAML/SPARQL-ANDROID"]
 	path = WSSWAML/SPARQL-ANDROID
 	url = https://github.com/BorderCloud/SPARQL-ANDROID

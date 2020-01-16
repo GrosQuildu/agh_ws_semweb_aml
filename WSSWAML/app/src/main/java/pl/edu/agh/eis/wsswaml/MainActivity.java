@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import wiki.lemedia.sparqlandroid;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import wiki.lemedia.sparqlandroid.*;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,29 +31,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                String endpointUrl = "https://query.wikidata.org/sparql";
-
-                String querySelect = "# This returns 10 random painting images\n" +
-                        "# RAND() returns one random number (cached like every query).\n" +
-                        "# The string representation of the item and the random number are hashed.\n" +
-                        "# This will give a complete different ordering every time you have a different random number.\n" +
-                        "# You can change the LIMIT if you want to trigger a new random number\n" +
-                        "#defaultView:ImageGrid\n" +
-                        "SELECT ?item ?itemLabel ?image (MD5(CONCAT(str(?item),str(RAND()))) as ?random)  WHERE {\n" +
-                        "  ?item wdt:P279 wd:Q1778821.\n" +
-                        "  ?item wdt:P18 ?image.\n" +
-                        "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
-                        "} ORDER BY ?random\n" +
-                        "LIMIT 10";
-
-                try {
-                    HashMap data = retrieveData(endpointUrl, querySelect);
-                    printResult(data, 30);
-                } catch (EndpointException eex) {
-                    eex.printStackTrace();
-                }
+                SparqlClient client = new SparqlClient();
             }
         });
     }
@@ -76,12 +56,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public static HashMap<String, HashMap> retrieveData(String endpointUrl, String query) throws EndpointException {
-        Endpoint sp = new Endpoint(endpointUrl, false);
-        HashMap<String, HashMap> rs = sp.query(query);
-        return rs;
     }
 
     public static void printResult(HashMap<String, HashMap> rs , int size) {

@@ -1,2 +1,2 @@
-include ':app', 'SPARQL-ANDROID2'
+include ':app', ':SPARQL-ANDROID'
 rootProject.name='WSSWAML'
