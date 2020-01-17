@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import wiki.lemedia.sparqlandroid.*;
+import org.apache.jena.query.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SparqlClient client = new SparqlClient();
+
+                String queryString = "select distinct ?Concept where {[] a ?Concept} LIMIT 10";
+                Query query = QueryFactory.create(queryString) ;
+
+                System.out.println(queryString);
+
+                QueryExecution qexec = QueryExecutionFactory.sparqlService("http://ff-news.ontotext.com/sparql", query);
+                ResultSet results = qexec.execSelect();
+                ResultSetFormatter.out(System.out, results, query) ;
             }
         });
     }
