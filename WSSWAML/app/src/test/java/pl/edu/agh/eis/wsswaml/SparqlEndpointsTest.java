@@ -2,6 +2,7 @@ package pl.edu.agh.eis.wsswaml;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -27,10 +28,11 @@ public class ExampleUnitTest {
 
     @Test
     public void wikidataSimpleQuery() {
-        String queryString = "SELECT ?item ?itemLabel ?image (MD5(CONCAT(str(?item),str(RAND()))) as ?random)  WHERE {\n" +
-                "  ?item wdt:P279 wd:Q1778821.\n" +
-                "  ?item wdt:P18 ?image.\n" +
-                "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
+        // get some food images
+        String queryString = "SELECT ?item ?itemLabel ?image (MD5(CONCAT(str(?item),str(RAND()))) as ?random) WHERE {\n" +
+                "?item wdt:P31 wd:Q1968435.\n" +
+                "?item wdt:P18 ?image.\n" +
+                "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
                 "} ORDER BY ?random\n" +
                 "LIMIT 10";
 
@@ -41,7 +43,7 @@ public class ExampleUnitTest {
         int resultsCounter = 0;
         for (; results.hasNext(); ) {
             QuerySolution soln = results.nextSolution();
-            RDFNode x = soln.get("itemLabel");
+
             Resource image = soln.getResource("image");
             Literal itemLabel = soln.getLiteral("itemLabel");
 

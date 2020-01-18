@@ -11,3 +11,10 @@ public interface Endpoint {
 //    Model construct(String queryString);
 //    boolean Ask(String queryString);
 }
+
+/*
+*  http://ldf.fi/finlex/sparql
+* http://etna.istc.cnr.it/food-sparql/
+* http://etna.istc.cnr.it/food/index-en.html
+* http://dbpedia-live.openlinksw.com/sparql/
+* */

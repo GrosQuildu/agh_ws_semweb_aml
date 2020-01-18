@@ -63,17 +63,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public static void printResult(HashMap<String, HashMap> rs , int size) {
-        for (String variable : (ArrayList<String>) rs.get("result").get("variables")) {
-            System.out.print(String.format("%-"+size+"."+size+"s", variable ) + " | ");
-        }
-        System.out.print("\n");
-        for (HashMap value : (ArrayList<HashMap>) rs.get("result").get("rows")) {
-            for (String variable : (ArrayList<String>) rs.get("result").get("variables")) {
-                System.out.print(String.format("%-"+size+"."+size+"s", value.get(variable)) + " | ");
-            }
-            System.out.print("\n");
-        }
-    }
 }
