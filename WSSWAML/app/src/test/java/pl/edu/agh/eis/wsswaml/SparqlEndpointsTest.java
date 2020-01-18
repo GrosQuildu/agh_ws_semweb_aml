@@ -2,14 +2,13 @@ package pl.edu.agh.eis.wsswaml;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 
 import org.junit.Test;
 
-import pl.edu.agh.eis.wsswaml.sparql.Endpoint;
+import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
 import pl.edu.agh.eis.wsswaml.sparql.GeoSparql;
 import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
 
@@ -20,11 +19,7 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
+public class SparqlEndpointsTest {
 
     @Test
     public void wikidataSimpleQuery() {
@@ -36,7 +31,7 @@ public class ExampleUnitTest {
                 "} ORDER BY ?random\n" +
                 "LIMIT 10";
 
-        Endpoint wikidata = new Wikidata();
+        EndpointInterface wikidata = new Wikidata();
         ResultSet results = wikidata.query(queryString);
 //        ResultSetFormatter.out(System.out, results);
 
@@ -65,7 +60,7 @@ public class ExampleUnitTest {
                 "   ?link geo:long ?lon\n" +
                 "} LIMIT 15";
 
-        Endpoint wikidata = new GeoSparql();
+        EndpointInterface wikidata = new GeoSparql();
         ResultSet results = wikidata.query(queryString);
 //        ResultSetFormatter.out(System.out, results);
 

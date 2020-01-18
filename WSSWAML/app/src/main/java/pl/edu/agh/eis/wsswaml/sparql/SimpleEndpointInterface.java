@@ -7,7 +7,7 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 
-public abstract class SimpleEndpoint implements Endpoint {
+public abstract class SimpleEndpointInterface implements EndpointInterface {
     public ResultSet query(String queryString) {
         Query query = QueryFactory.create(getPrefixes() + queryString) ;
         QueryExecution qexec = QueryExecutionFactory.sparqlService(getURL(), query);

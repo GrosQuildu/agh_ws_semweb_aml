@@ -3,7 +3,7 @@ package pl.edu.agh.eis.wsswaml.sparql;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 
-public interface Endpoint {
+public interface EndpointInterface {
     String getURL();
     String getPrefixes();
     ResultSet query(String queryString);
