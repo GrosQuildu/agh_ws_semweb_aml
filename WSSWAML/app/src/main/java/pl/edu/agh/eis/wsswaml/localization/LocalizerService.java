@@ -18,7 +18,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class LocalizerService extends Service implements LocationListener {
-    private static final String TAG = "";
+    private static final String TAG = "LocalizerService";
     private static final int ONE_MINUTE = 1000 * 60;
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     private static final int RECORD_FREQ = ONE_MINUTE / 60;

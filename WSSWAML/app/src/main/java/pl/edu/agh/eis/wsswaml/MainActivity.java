@@ -1,27 +1,39 @@
 package pl.edu.agh.eis.wsswaml;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.os.StrictMode;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import android.os.StrictMode;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
-import wiki.lemedia.sparqlandroid.*;
-import com.hp.hpl.jena.query.*;
+import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
 
 
 public class MainActivity extends AppCompatActivity {
+    private LocalizerServiceConnection localizer = LocalizerServiceConnection.getInstance();
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +45,34 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {Manifest.permission.INTERNET, Manifest.permission.ACCESS_FINE_LOCATION};
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+
+        Button findCuisineButton = findViewById(R.id.find_cuisine_button);
+        findCuisineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (localizer.isEnabled()) {
+                    localizer.disable(getApplicationContext());
+                }
 
+                Intent intent = new Intent(MainActivity.this, CuisinesActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+
+        Button findRestaurantButton = findViewById(R.id.find_restaurant_button);
+        findRestaurantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (localizer.isEnabled()) {
+                    localizer.disable(getApplicationContext());
+                } else {
+                    localizer.enable(getApplicationContext());
+                }
             }
         });
     }

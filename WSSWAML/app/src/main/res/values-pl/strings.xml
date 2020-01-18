@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WSSWAML</string>
+    <string name="application_name">NK - Najbliższa Kuchnia</string>
+    <string name="find_cuisine">Znajdź kuchnię</string>
+    <string name="find_restaurant">Znajdź najbliższą restaurację</string>
+    <string name="food">Jedzenie</string>
+    <string name="cuisine_placeholder">"Kuchnia -> "</string>
+</resources>

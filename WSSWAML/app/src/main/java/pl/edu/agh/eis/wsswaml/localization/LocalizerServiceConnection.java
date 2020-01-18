@@ -45,4 +45,8 @@ public class LocalizerServiceConnection {
     public void disable(Context appContext) {
         appContext.unbindService(connection);
     }
+
+    public boolean isEnabled() {
+        return mBound;
+    }
 }
