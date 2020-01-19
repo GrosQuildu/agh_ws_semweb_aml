@@ -11,6 +11,7 @@ import pl.edu.agh.eis.wsswaml.data.Cuisines;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import org.apache.jena.atlas.json.io.parser.JSONParser;
@@ -40,12 +41,9 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         });
 
-        //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.spinner_cuisines_options);
-        //create a list of items for the spinner.
         List<String> items = getCuisines();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
 
     }
@@ -56,6 +54,12 @@ public class UserSettingsActivity extends AppCompatActivity {
             items.add(cus.toString());
         }
         return items;
+    }
+
+    private int getDistance()
+    {
+        EditText distanceNumber = findViewById(R.id.input_distance);
+        return Integer.parseInt( distanceNumber.getText().toString() );
     }
 
 }
