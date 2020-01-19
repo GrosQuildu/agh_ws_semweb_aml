@@ -18,6 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".UserSettingsActivity"
+            android:label="@string/title_activity_user_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RestaurantsActivity"
+            android:label="@string/title_activity_restaurants"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".CuisinesActivity"
             android:label="@string/title_activity_cuisines"
             android:parentActivityName=".MainActivity"

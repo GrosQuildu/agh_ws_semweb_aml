@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".UserSettingsActivity"
+    tools:showIn="@layout/activity_user_settings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/label_choose_cuisine"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="@string/choose_cuisine" />
+
+        <Spinner
+            android:id="@+id/spinner_cuisines_options"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/label_choose_cuisine"
+            android:layout_marginTop="150dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:orientation="vertical"
+            android:spinnerMode="dropdown"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+    <!--
+
+
+
+
+            <Label
+                android:id="@+id/label_choose_cuisine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="312dp"
+                android:text="@string/choose_distance"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        -->
+</androidx.constraintlayout.widget.ConstraintLayout>

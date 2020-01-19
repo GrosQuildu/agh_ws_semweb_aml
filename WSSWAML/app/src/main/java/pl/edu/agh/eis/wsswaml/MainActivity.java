@@ -68,11 +68,12 @@ public class MainActivity extends AppCompatActivity {
         findRestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (localizer.isEnabled()) {
-                    localizer.disable(getApplicationContext());
-                } else {
-                    localizer.enable(getApplicationContext());
-                }
+
+                //if (!localizer.isEnabled()) {
+                //    localizer.enable(getApplicationContext());
+                //}
+                Intent userSettingIntent = new Intent(MainActivity.this, UserSettingsActivity.class);
+                MainActivity.this.startActivity(userSettingIntent);
             }
         });
     }

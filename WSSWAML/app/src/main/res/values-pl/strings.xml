@@ -6,4 +6,6 @@
     <string name="find_restaurant">Znajdź najbliższą restaurację</string>
     <string name="food">Jedzenie</string>
     <string name="cuisine_placeholder">"Kuchnia -> "</string>
+    <string name="choose_cuisine">Wybierz rodziaj kuchni:</string>
+    <string name="choose_distance">Podaj maksymalny dystans(m):</string>
 </resources>

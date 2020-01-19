@@ -4,6 +4,8 @@
     <string name="find_cuisine">Find cuisine</string>
     <string name="find_restaurant">Find closest restaurant</string>
     <string name="food">Food</string>
+    <string name="choose_cuisine">Choose cuisine:</string>
+    <string name="choose_distance">Choose max distance(m):</string>
     <string name="title_activity_cuisines">CuisinesActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -96,4 +98,6 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="cuisine_placeholder">"Cuisine -> "</string>
+    <string name="title_activity_restaurants">activity_restaurants</string>
+    <string name="title_activity_user_settings">activity_user_settings</string>
 </resources>
