@@ -76,6 +76,19 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(userSettingIntent);
             }
         });
+
+        Button cuisineDescriptionButton = findViewById(R.id.cuisine_description_button);
+        cuisineDescriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //if (!localizer.isEnabled()) {
+                //    localizer.enable(getApplicationContext());
+                //}
+                Intent cuisineDescriptionIntent = new Intent(MainActivity.this, CuisineDescriptionActivity.class);
+                MainActivity.this.startActivity(cuisineDescriptionIntent);
+            }
+        });
     }
 
     @Override

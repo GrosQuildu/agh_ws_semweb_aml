@@ -2,6 +2,11 @@ package pl.edu.agh.eis.wsswaml;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.hp.hpl.jena.query.QuerySolution;
@@ -9,19 +14,12 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import pl.edu.agh.eis.wsswaml.models.Cuisine;
-import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
 import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
+import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
 
 public class CuisinesActivity extends AppCompatActivity {
     private RecyclerView cuisinesRecyclerView;
@@ -67,6 +65,8 @@ public class CuisinesActivity extends AppCompatActivity {
             //System.out.println(itemLabel + " - " + image);
             resultsCounter++;
         }
+
+        mCuisinesList.add(new Cuisine("French", "https://upload.wikimedia.org/wikipedia/commons/4/44/Cuisine_Trois_%C3%A9toiles.jpg", "this is description of the french cuisine"));
 
         mAdapter = new CuisinesAdapter(mCuisinesList,this);
         cuisinesRecyclerView.setAdapter(mAdapter);

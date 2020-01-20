@@ -10,6 +10,12 @@ public class Cuisine {
         this.name = name;
     }
 
+    public Cuisine(String name, String image, String description) {
+        this.image = image;
+        this.name = name;
+        this.description = description;
+    }
+
     public String getImage() {
         return image;
     }

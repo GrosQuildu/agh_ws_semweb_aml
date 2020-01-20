@@ -103,5 +103,33 @@ public class SparqlEndpointsTest {
 
     }
 
+    @Test
+    public void DBpediaSimpleQuery2() {
+        //
+        String queryString = "SELECT DISTINCT ?property ?hasValue\n" +
+        "WHERE {\n" +
+        "    ?property rdfs:comment ?abstract.\n" +
+        "    { <http://dbpedia.org/resource/German_cuisine> ?property ?hasValue }\n" +
+        "    FILTER (langMatches(lang(?hasValue),\"en\"))\n" +
+        "    }";
+
+        EndpointInterface dbpedia = new DBpedia();
+        ResultSet results = dbpedia.query(queryString);
+
+        int resultsCounter = 0;
+        for (; results.hasNext(); ) {
+            QuerySolution soln = results.nextSolution();
+            RDFNode  hasValue= soln.get("hasValue");
+            Resource property = soln.getResource("property");
+
+            System.out.println(property + " - " + hasValue);
+            resultsCounter++;
+        }
+        assertEquals(1, resultsCounter);
+
+    }
+
+
+
 
 }
