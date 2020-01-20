@@ -11,6 +11,7 @@ import org.junit.Test;
 import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
 import pl.edu.agh.eis.wsswaml.sparql.GeoSparql;
 import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
+import pl.edu.agh.eis.wsswaml.sparql.DBpedia;
 
 import static org.junit.Assert.*;
 
@@ -75,4 +76,32 @@ public class SparqlEndpointsTest {
         }
         assertEquals(15, resultsCounter);
     }
+
+    @Test
+    public void DBpediaSimpleQuery() {
+        //
+        String queryString = "SELECT ?property ?hasValue ?isValueOf ?comment\n" +
+                "WHERE {\n" +
+                "    { <http://dbpedia.org/resource/Polish_cuisine> ?property ?hasValue }\n" +
+                "   UNION\n" +
+                "      { ?isValueOf ?property <http://dbpedia.org/resource/Polish_cuisine> }\n" +
+                "      }";
+
+        EndpointInterface dbpedia = new DBpedia();
+        ResultSet results = dbpedia.query(queryString);
+
+        int resultsCounter = 0;
+        for (; results.hasNext(); ) {
+            QuerySolution soln = results.nextSolution();
+            RDFNode  hasValue= soln.get("hasValue");
+            Resource property = soln.getResource("property");
+
+            System.out.println(property + " - " + hasValue);
+            resultsCounter++;
+        }
+        assertEquals(530, resultsCounter);
+
+    }
+
+
 }

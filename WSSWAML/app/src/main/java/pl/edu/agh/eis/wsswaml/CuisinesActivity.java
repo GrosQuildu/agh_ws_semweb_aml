@@ -4,6 +4,10 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Literal;
+import com.hp.hpl.jena.rdf.model.Resource;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.edu.agh.eis.wsswaml.models.Cuisine;
+import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
+import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
 
 public class CuisinesActivity extends AppCompatActivity {
     private RecyclerView cuisinesRecyclerView;
@@ -34,8 +40,33 @@ public class CuisinesActivity extends AppCompatActivity {
         cuisinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mCuisinesList = new ArrayList<>();
-        mCuisinesList.add(new Cuisine("Mango", "https://upload.wikimedia.org/wikipedia/commons/8/8b/Food_in_Israel.jpg"));
-        mCuisinesList.add(new Cuisine("Pineapple", "https://upload.wikimedia.org/wikipedia/commons/9/99/Ph%E1%BB%9F_b%C3%B2%2C_C%E1%BA%A7u_Gi%E1%BA%A5y%2C_H%C3%A0_N%E1%BB%99i.jpg"));
+        //mCuisinesList.add(new Cuisine("Turkish", "https://upload.wikimedia.org/wikipedia/commons/c/c5/Eggplant_kebab_and_isot.jpg"));
+        //mCuisinesList.add(new Cuisine("Korean", "https://upload.wikimedia.org/wikipedia/commons/3/3e/Korean.food-Hanjungsik-01.jpg"));
+        //mCuisinesList.add(new Cuisine("French", "https://upload.wikimedia.org/wikipedia/commons/4/44/Cuisine_Trois_%C3%A9toiles.jpg"));
+
+        String queryString = "SELECT ?item ?itemLabel ?image (MD5(CONCAT(str(?item),str(RAND()))) as ?random) WHERE {\n" +
+                "?item wdt:P31 wd:Q1968435.\n" +
+                "?item wdt:P18 ?image.\n" +
+                "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
+                "} ORDER BY ?random\n" +
+                "LIMIT 10";
+
+        EndpointInterface wikidata = new Wikidata();
+        ResultSet results = wikidata.query(queryString);
+//        ResultSetFormatter.out(System.out, results);
+
+        int resultsCounter = 0;
+        for (; results.hasNext(); ) {
+            QuerySolution soln = results.nextSolution();
+
+            Resource image = soln.getResource("image");
+            Literal itemLabel = soln.getLiteral("itemLabel");
+            // String image_string = image.toString();
+            mCuisinesList.add(new Cuisine(itemLabel.toString().split(" |@")[0], image.toString()));
+
+            //System.out.println(itemLabel + " - " + image);
+            resultsCounter++;
+        }
 
         mAdapter = new CuisinesAdapter(mCuisinesList,this);
         cuisinesRecyclerView.setAdapter(mAdapter);
