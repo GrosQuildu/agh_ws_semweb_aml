@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.apache.jena.atlas.json.JsonArray;
 import org.apache.jena.atlas.json.io.parser.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,7 +62,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         findRestaurantButton = findViewById(R.id.btn_ok);
         mQueue = Volley.newRequestQueue(this);
 
-        //callApi();
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +78,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         findRestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
-                //UserSettingsActivity.this.startActivity(restaurantsIntent);
                 callApi();
             }
         });
@@ -120,6 +118,10 @@ public class UserSettingsActivity extends AppCompatActivity {
 
                             JSONObject object = new JSONObject(response.toString());
                             JSONArray jsonArray = object.getJSONArray("restaurants");
+                            //String restaurants = "{}";
+                            Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
+                            restaurantsIntent.putExtra("data", jsonArray.toString());
+                            UserSettingsActivity.this.startActivity(restaurantsIntent);
 
                         }
                         catch(JSONException e){
