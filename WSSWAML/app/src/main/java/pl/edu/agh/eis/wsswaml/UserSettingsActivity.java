@@ -22,11 +22,13 @@ import pl.edu.agh.eis.wsswaml.models.Restaurant;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.jena.atlas.json.JsonArray;
 import org.apache.jena.atlas.json.io.parser.JSONParser;
@@ -42,12 +44,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class UserSettingsActivity extends AppCompatActivity {
-    private TextView mTextViewResult;
+public class UserSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private RequestQueue mQueue;
     private Button findRestaurantButton;
     private Spinner dropdown;
     private Toolbar toolbar;
+    private EditText distanceInMetersText;
+    private int choosenCuisine = 161;
+    private int distance = 1000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +62,9 @@ public class UserSettingsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mTextViewResult = findViewById(R.id.text_view_result);
         dropdown = findViewById(R.id.spinner_cuisines_options);
         findRestaurantButton = findViewById(R.id.btn_ok);
+        distanceInMetersText = findViewById(R.id.input_distance);
         mQueue = Volley.newRequestQueue(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -73,12 +78,14 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getCuisines());
         dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(this);
 
 
         findRestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callApi();
+                distance = Integer.parseInt((distanceInMetersText.getText().toString()));
+                callApi(distance, choosenCuisine, 19.881645, 50.013439);
             }
         });
     }
@@ -97,13 +104,11 @@ public class UserSettingsActivity extends AppCompatActivity {
         return  Integer.parseInt( distanceNumber.getText().toString() );
     }
 
-    private void callApi()
+    private void callApi(int radius, int cuisines, double lon, double lat)
     {
         //To do:
-        // wstawić parametry pobrane z ustawień tego activity (cuisines, radius)
         // wstawić prawidłową lokalizację
-        // wysłanie jsona do nowej aktywności
-        String uri = "https://developers.zomato.com/api/v2.1/search?entity_id=255&entity_type=city&count=10&lat=50.013439&lon=19.881645&radius=500&cuisines=161&sort=real_distance";
+        String uri = "https://developers.zomato.com/api/v2.1/search?entity_id=255&entity_type=city&count=10&lat=" + lat + "&lon=" + lon + "&radius=" + radius + "&cuisines=" + cuisines + "&sort=real_distance";
 
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(
@@ -118,7 +123,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
                             JSONObject object = new JSONObject(response.toString());
                             JSONArray jsonArray = object.getJSONArray("restaurants");
-                            //String restaurants = "{}";
+
                             Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
                             restaurantsIntent.putExtra("data", jsonArray.toString());
                             UserSettingsActivity.this.startActivity(restaurantsIntent);
@@ -146,5 +151,17 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         };
         mQueue.add(objectRequest);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        String text = adapterView.getItemAtPosition(position).toString();
+        Cuisines cuisine = Cuisines.valueOf(text);
+        this.choosenCuisine = cuisine.getValue();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
