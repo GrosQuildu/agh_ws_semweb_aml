@@ -7,14 +7,14 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".UserSettingsActivity"
+    android:gravity="center"
     tools:showIn="@layout/activity_user_settings">
 
     <TextView
             android:id="@+id/label_choose_cuisine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
             android:layout_marginBottom="10dp"
             android:text="@string/choose_cuisine" />
 
@@ -41,7 +41,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_choose_distance"
-            android:layout_marginLeft="20dp"
             android:inputType="number" />
-
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/btn_ok"
+            />
+            <TextView
+                android:id="@+id/text_view_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                />
 </LinearLayout>

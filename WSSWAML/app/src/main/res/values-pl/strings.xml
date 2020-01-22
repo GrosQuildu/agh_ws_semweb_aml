@@ -8,4 +8,6 @@
     <string name="cuisine_placeholder">"Kuchnia -> "</string>
     <string name="choose_cuisine">Wybierz rodziaj kuchni:</string>
     <string name="choose_distance">Podaj maksymalny dystans(m):</string>
+    <string name="btn_ok">Wyszukaj restauracje!</string>
+
 </resources>

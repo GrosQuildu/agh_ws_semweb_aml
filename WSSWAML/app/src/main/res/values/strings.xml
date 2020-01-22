@@ -6,6 +6,7 @@
     <string name="food">Food</string>
     <string name="choose_cuisine">Choose cuisine:</string>
     <string name="choose_distance">Choose max distance(m):</string>
+    <string name="btn_ok">Find restaurants!</string>
     <string name="title_activity_cuisines">CuisinesActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

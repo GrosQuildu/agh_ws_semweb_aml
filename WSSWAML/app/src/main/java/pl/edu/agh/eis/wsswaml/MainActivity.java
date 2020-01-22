@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //if (!localizer.isEnabled()) {
-                //    localizer.enable(getApplicationContext());
-                //}
+                if (!localizer.isEnabled()) {
+                    localizer.enable(getApplicationContext());
+                }
                 Intent userSettingIntent = new Intent(MainActivity.this, UserSettingsActivity.class);
                 MainActivity.this.startActivity(userSettingIntent);
             }
