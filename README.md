@@ -22,6 +22,7 @@ cd agh_ws_semweb_aml/WSSWAML
 Query SPARQL endpoints:
 * With apache jena (currently used), version 2.13.0, from [jena-droid](https://github.com/sbrunk/jena-android)
 * With (simpler) [SPARQL-ANDROID](https://github.com/BorderCloud/SPARQL-ANDROID), fork of [SPARQL-JAVA](https://github.com/BorderCloud/SPARQL-JAVA)
+
 Localize user:
 * `LocationListener` service is implemented (uses both GPS and Network)
 * Accessible via singleton that (un)bound the service
