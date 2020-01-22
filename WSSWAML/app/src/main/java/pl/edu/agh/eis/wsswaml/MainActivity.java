@@ -8,17 +8,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
+import pl.edu.agh.eis.wsswaml.views.CuisinesActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        if (localizer.isEnabled()) {
+            localizer.disable(getApplicationContext());
+        }
+        super.onResume();
     }
 
     @Override
@@ -52,42 +57,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Button findCuisineButton = findViewById(R.id.find_cuisine_button);
-        findCuisineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (localizer.isEnabled()) {
-                    localizer.disable(getApplicationContext());
-                }
-
-                Intent intent = new Intent(MainActivity.this, CuisinesActivity.class);
-                MainActivity.this.startActivity(intent);
+        findCuisineButton.setOnClickListener(view -> {
+            if (localizer.isEnabled()) {
+                localizer.disable(getApplicationContext());
             }
+
+            Intent intent = new Intent(this, CuisinesActivity.class);
+            this.startActivity(intent);
         });
 
         Button findRestaurantButton = findViewById(R.id.find_restaurant_button);
-        findRestaurantButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!localizer.isEnabled()) {
-                    localizer.enable(getApplicationContext());
-                }
-                Intent userSettingIntent = new Intent(MainActivity.this, UserSettingsActivity.class);
-                MainActivity.this.startActivity(userSettingIntent);
+        findRestaurantButton.setOnClickListener(view -> {
+            if (!localizer.isEnabled()) {
+                localizer.enable(getApplicationContext());
             }
-        });
-
-        Button cuisineDescriptionButton = findViewById(R.id.cuisine_description_button);
-        cuisineDescriptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //if (!localizer.isEnabled()) {
-                //    localizer.enable(getApplicationContext());
-                //}
-                Intent cuisineDescriptionIntent = new Intent(MainActivity.this, CuisineDescriptionActivity.class);
-                MainActivity.this.startActivity(cuisineDescriptionIntent);
-            }
+            Intent userSettingIntent = new Intent(this, UserSettingsActivity.class);
+            this.startActivity(userSettingIntent);
         });
     }
 

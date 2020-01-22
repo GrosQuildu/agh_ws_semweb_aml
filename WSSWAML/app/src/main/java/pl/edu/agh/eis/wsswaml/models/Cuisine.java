@@ -1,16 +1,18 @@
 package pl.edu.agh.eis.wsswaml.models;
 
 public class Cuisine {
-    public String image;
-    public String name;
-    public String description;
+    private String entityID;
+    private String image;
+    private String name;
+    private String description;
 
-    public Cuisine(String name, String image) {
+    public Cuisine(String entityID, String name, String image) {
+        this.entityID = entityID;
         this.image = image;
         this.name = name;
     }
 
-    public Cuisine(String name, String image, String description) {
+    public Cuisine(String entityID, String name, String image, String description) {
         this.image = image;
         this.name = name;
         this.description = description;
@@ -38,5 +40,13 @@ public class Cuisine {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEntityID() {
+        return entityID;
+    }
+
+    public void setEntityID(String entityID) {
+        this.entityID = entityID;
     }
 }

@@ -15,6 +15,7 @@ public class DBpedia extends SimpleEndpointInterface{
                 "PREFIX : <http://dbpedia.org/resource/>\n" +
                 "PREFIX dbpedia2: <http://dbpedia.org/property/>\n" +
                 "PREFIX dbpedia: <http://dbpedia.org/>\n" +
+                "PREFIX dbo:    <http://dbpedia.org/ontology/>" +
                 "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>";
     }
 
