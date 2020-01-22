@@ -28,13 +28,9 @@ public class CuisineDescriptionActivity extends AppCompatActivity {
     ResultSet results = dbpedia.query(queryString);
 
 
-        QuerySolution soln = results.nextSolution();
-        RDFNode hasValue= soln.get("hasValue");
-        Resource property = soln.getResource("property");
-
-
-
-
+    QuerySolution soln = results.nextSolution();
+    RDFNode hasValue = soln.get("hasValue");
+    Resource property = soln.getResource("property");
 
 
     //private List<Cuisine> mCuisinesList;
@@ -44,15 +40,14 @@ public class CuisineDescriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuisine_description);
-        TextView desId = (TextView) findViewById (R.id.textViewDescription);
+        TextView desId = (TextView) findViewById(R.id.textViewDescription);
         desId.setText(cuisine.getDescription());
     }
 
-    private void fillTextView (int id, String text) {
+    private void fillTextView(int id, String text) {
         TextView tv = (TextView) findViewById(id);
         tv.setText(text);
     }
-
 
 
 }

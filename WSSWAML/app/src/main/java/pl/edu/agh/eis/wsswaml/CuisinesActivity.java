@@ -30,7 +30,7 @@ public class CuisinesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuisines);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         RecyclerView cuisinesRecyclerView = findViewById(R.id.cuisines_recycler_view);
@@ -38,35 +38,23 @@ public class CuisinesActivity extends AppCompatActivity {
         cuisinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mCuisinesList = new ArrayList<>();
-        //mCuisinesList.add(new Cuisine("Turkish", "https://upload.wikimedia.org/wikipedia/commons/c/c5/Eggplant_kebab_and_isot.jpg"));
-        //mCuisinesList.add(new Cuisine("Korean", "https://upload.wikimedia.org/wikipedia/commons/3/3e/Korean.food-Hanjungsik-01.jpg"));
-        //mCuisinesList.add(new Cuisine("French", "https://upload.wikimedia.org/wikipedia/commons/4/44/Cuisine_Trois_%C3%A9toiles.jpg"));
 
         String queryString = "SELECT ?item ?itemLabel ?image (MD5(CONCAT(str(?item),str(RAND()))) as ?random) WHERE {\n" +
                 "?item wdt:P31 wd:Q1968435.\n" +
                 "?item wdt:P18 ?image.\n" +
                 "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
-                "} ORDER BY ?random\n" +
-                "LIMIT 10";
+                "} ORDER BY ?random\n";
 
         EndpointInterface wikidata = new Wikidata();
         ResultSet results = wikidata.query(queryString);
-//        ResultSetFormatter.out(System.out, results);
 
-        int resultsCounter = 0;
         for (; results.hasNext(); ) {
             QuerySolution soln = results.nextSolution();
 
             Resource image = soln.getResource("image");
             Literal itemLabel = soln.getLiteral("itemLabel");
-            // String image_string = image.toString();
-            mCuisinesList.add(new Cuisine(itemLabel.toString().split(" |@")[0], image.toString()));
-
-            //System.out.println(itemLabel + " - " + image);
-            resultsCounter++;
+            mCuisinesList.add(new Cuisine(itemLabel.toString().split("[ @]")[0], image.toString()));
         }
-
-        mCuisinesList.add(new Cuisine("French", "https://upload.wikimedia.org/wikipedia/commons/4/44/Cuisine_Trois_%C3%A9toiles.jpg", "this is description of the french cuisine"));
 
         mAdapter = new CuisinesAdapter(mCuisinesList,this);
         cuisinesRecyclerView.setAdapter(mAdapter);
