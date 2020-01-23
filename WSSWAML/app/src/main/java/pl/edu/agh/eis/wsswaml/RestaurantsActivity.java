@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 public class RestaurantsActivity extends AppCompatActivity {
 
+    private JSONObject json;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +45,25 @@ public class RestaurantsActivity extends AppCompatActivity {
 
         String restaurants = getIntent().getStringExtra("data");
         try {
-            JSONObject json = new JSONObject(restaurants);
+            this.json = new JSONObject(restaurants);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        GetRestaurants();
+    }
+
+    private void GetRestaurants() {
+
+        if(this.json == null) return;
+
+        try {
+            JSONObject restaurants = this.json.getJSONObject("restaurants");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
