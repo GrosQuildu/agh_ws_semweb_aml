@@ -34,14 +34,12 @@ import java.util.List;
 public class RestaurantsActivity extends AppCompatActivity {
 
     private JSONObject json;
-    private TextView jsonLabel;
     private List<Restaurant> restaurants;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        jsonLabel = findViewById(R.id.label_json);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
