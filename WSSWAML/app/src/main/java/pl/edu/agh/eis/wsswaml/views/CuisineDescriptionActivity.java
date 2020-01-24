@@ -1,24 +1,19 @@
 package pl.edu.agh.eis.wsswaml.views;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
 
 import java.util.Objects;
 
 import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.data.Queries;
-import pl.edu.agh.eis.wsswaml.models.Cuisine;
 import pl.edu.agh.eis.wsswaml.sparql.DBpedia;
 import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
 
@@ -36,6 +31,7 @@ public class CuisineDescriptionActivity extends AppCompatActivity {
         for (; results.hasNext(); ) {
             QuerySolution soln = results.nextSolution();
             cuisineText = soln.get("abstract").toString();
+            cuisineText = cuisineText.substring(0, cuisineText.length() - 3);
             break;
         }
 
