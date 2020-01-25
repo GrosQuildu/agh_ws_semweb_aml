@@ -2,19 +2,7 @@ package pl.edu.agh.eis.wsswaml;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import cz.msebera.android.httpclient.Header;
-
-import pl.edu.agh.eis.wsswaml.data.Cuisines;
-
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,12 +12,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+import pl.edu.agh.eis.wsswaml.data.Cuisines;
 
 public class UserSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -65,22 +66,18 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
-        findRestaurantButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String value = distanceInMetersText.getText().toString();
-                if(value != null && !value.isEmpty()) {
-                    distance = Integer.parseInt((distanceInMetersText.getText().toString()));
-                }
-                callApi(distance, choosenCuisine, longitude, latitude);
+        findRestaurantButton.setOnClickListener(view -> {
+            String value = distanceInMetersText.getText().toString();
+            if(!value.isEmpty()) {
+                distance = Integer.parseInt((distanceInMetersText.getText().toString()));
             }
-
+            callApi(distance, choosenCuisine, longitude, latitude);
         });
 
     }
 
     private List<String> getCuisines() {
-        List<String> items = new ArrayList<String>();
+        List<String> items = new ArrayList<>();
         for (Cuisines cus : Cuisines.values()) {
             items.add(cus.toString());
         }
@@ -102,33 +99,27 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
                 Request.Method.GET,
                 uri,
                 null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("Rest Response", response.toString());
-                        try {
+                response -> {
+                    Log.e("Rest Response", response.toString());
+                    try {
 
-                            JSONObject object = new JSONObject(response.toString());
-                            JSONArray jsonArray = object.getJSONArray("restaurants");
+                        JSONObject object = new JSONObject(response.toString());
+                        JSONArray jsonArray = object.getJSONArray("restaurants");
 
-                            Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
-                            restaurantsIntent.putExtra("data", jsonArray.toString());
-                            UserSettingsActivity.this.startActivity(restaurantsIntent);
+                        Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
+                        restaurantsIntent.putExtra("data", jsonArray.toString());
+                        UserSettingsActivity.this.startActivity(restaurantsIntent);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Resoinse", error.toString());
-                        TextView distance = findViewById(R.id.label_choose_distance);
-                        distance.setText(error.toString().substring(0, 1000));
-                    }
+                error -> {
+                    Log.e("Rest Resoinse", error.toString());
+                    TextView distance = findViewById(R.id.label_choose_distance);
+                    distance.setText(error.toString().substring(0, 1000));
                 }
-        )
+        );
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.addHeader("user-key", "4e6fa5534bfc1fbe48829a826a096a0a");
