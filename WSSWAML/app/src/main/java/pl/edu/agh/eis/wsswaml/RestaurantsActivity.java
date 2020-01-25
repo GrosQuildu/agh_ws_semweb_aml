@@ -1,8 +1,9 @@
 package pl.edu.agh.eis.wsswaml;
 
-import androidx.fragment.app.FragmentActivity;
-
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,19 +11,72 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.edu.agh.eis.wsswaml.models.Restaurant;
 
 public class RestaurantsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private JSONObject json;
+    private List<Restaurant> restaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        String restaurants = getIntent().getStringExtra("data");
+        GetRestaurants(restaurants);
+    }
+
+    private void GetRestaurants(String data) {
+        if (data == null) return;
+        Restaurant restaurant;
+        this.restaurants = new ArrayList<>();
+        try {
+            JSONArray jsonarray = new JSONArray(data);
+            for(int i=0; i < jsonarray.length(); i++) {
+                restaurant = new Restaurant();
+                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                restaurant.name = jsonobject.getJSONObject("restaurant").getString("name");
+                restaurant.url = jsonobject.getJSONObject("restaurant").getString("url");
+                restaurant.location = jsonobject.getJSONObject("restaurant").getJSONObject("location").getString("address");
+                restaurant.cuisines = jsonobject.getJSONObject("restaurant").getString("cuisines");
+                restaurant.timings = jsonobject.getJSONObject("restaurant").getString("timings");
+                restaurant.id = jsonobject.getJSONObject("restaurant").getString("id");
+
+                //JSONArray photos = jsonobject.getJSONObject("restaurant").getJSONObject("photos").getJSONArray("photos");
+                //JSONObject photoObject = photos.getJSONObject(0);
+                restaurant.photoUrl = "atrapa";//photoObject.getJSONObject("photo").getString("url");
+
+                this.restaurants.add(restaurant);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

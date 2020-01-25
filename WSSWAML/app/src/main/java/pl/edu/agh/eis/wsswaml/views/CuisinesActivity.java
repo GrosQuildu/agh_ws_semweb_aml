@@ -47,13 +47,17 @@ public class CuisinesActivity extends AppCompatActivity implements OnItemClickLi
         EndpointInterface wikidata = new Wikidata();
         ResultSet results = wikidata.query(Queries.allCuisines());
 
+
         for (; results.hasNext(); ) {
             QuerySolution soln = results.nextSolution();
 
             Resource image = soln.getResource("image");
             Literal cuisineLabel = soln.getLiteral("cuisineLabel");
             Resource entityID = soln.getResource("cuisine");
-            mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[0], image.toString()));
+            if(!cuisineLabel.toString().startsWith("Q")){
+                mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[0], image.toString()));
+            }
+
         }
 
         mAdapter = new CuisinesAdapter(mCuisinesList, this);

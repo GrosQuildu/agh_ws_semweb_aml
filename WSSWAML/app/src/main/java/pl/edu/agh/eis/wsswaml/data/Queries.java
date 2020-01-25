@@ -11,7 +11,8 @@ public class Queries {
                 "   ?cuisine wdt:P31 wd:Q1968435.\n" +
                 "   ?cuisine wdt:P18 ?image.\n" +
                 "   SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
-                "} ORDER BY ?random\n";
+                "} ORDER BY ?random\n" +
+                "LIMIT 10";
         Log.i(TAG, query);
         return query;
     }
