@@ -12,7 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import pl.edu.agh.eis.wsswaml.R;
+import pl.edu.agh.eis.wsswaml.models.Restaurant;
 
 public class FindRestaurantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -32,6 +35,9 @@ public class FindRestaurantMapActivity extends FragmentActivity implements OnMap
             Toast.makeText(getApplicationContext(), "Map is null :(", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) getIntent().getSerializableExtra("restaurants");
+
     }
 
     /**

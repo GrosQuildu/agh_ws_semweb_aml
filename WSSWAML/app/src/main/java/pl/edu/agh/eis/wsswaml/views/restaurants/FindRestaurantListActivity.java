@@ -1,6 +1,7 @@
 package pl.edu.agh.eis.wsswaml.views.restaurants;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +27,7 @@ import pl.edu.agh.eis.wsswaml.models.Restaurant;
 
 public class FindRestaurantListActivity extends AppCompatActivity {
 
-    private List<Restaurant> restaurants;
+    private ArrayList<Restaurant> restaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +41,13 @@ public class FindRestaurantListActivity extends AppCompatActivity {
                 .setAction("Action", null).show());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-//        Button showOnMapButton = findViewById(R.id.show_on_map_button);
-//        showOnMapButton.setOnClickListener();
-
         String restaurants = getIntent().getStringExtra("data");
         GetRestaurants(restaurants);
     }
 
     public void showOnMap(View view) {
         Intent intent = new Intent(this, FindRestaurantMapActivity.class);
+        intent.putExtra("restaurants", restaurants);
         startActivity(intent);
     }
 
@@ -63,10 +62,13 @@ public class FindRestaurantListActivity extends AppCompatActivity {
                 JSONObject restaurantJson = jsonarray.getJSONObject(i).getJSONObject("restaurant");
                 restaurant.name = restaurantJson.getString("name");
                 restaurant.url = restaurantJson.getString("url");
-                restaurant.location = restaurantJson.getJSONObject("location").getString("address");
+                restaurant.address = restaurantJson.getJSONObject("location").getString("address");
                 restaurant.cuisines = restaurantJson.getString("cuisines");
                 restaurant.timings = restaurantJson.getString("timings");
                 restaurant.id = restaurantJson.getString("id");
+                restaurant.location = new Location(restaurant.address);
+                restaurant.location.setLongitude(Double.valueOf(restaurantJson.getJSONObject("location").getString("longitude")));
+                restaurant.location.setLatitude(Double.valueOf(restaurantJson.getJSONObject("location").getString("latitude")));
 
                 //JSONArray photos = jsonobject.getJSONObject("restaurant").getJSONObject("photos").getJSONArray("photos");
                 //JSONObject photoObject = photos.getJSONObject(0);
