@@ -90,8 +90,9 @@ public class FindRestaurantSettingsActivity extends AppCompatActivity implements
                 .appendQueryParameter("lat", Double.toString(lat))
                 .appendQueryParameter("lon", Double.toString(lon))
                 .appendQueryParameter("radius", Integer.toString(radius))
-                .appendQueryParameter("cuisines", Integer.toString(cuisines))
                 .appendQueryParameter("sort", "real_distance");
+        if (cuisines != -1)
+                builder.appendQueryParameter("cuisines", Integer.toString(cuisines));
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -131,6 +132,6 @@ public class FindRestaurantSettingsActivity extends AppCompatActivity implements
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        this.chosenCuisine = 0;
+        this.chosenCuisine = -1;
     }
 }
