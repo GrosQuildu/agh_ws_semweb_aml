@@ -8,12 +8,14 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 import org.junit.Test;
 
+import java.util.Locale;
+
+import pl.edu.agh.eis.wsswaml.sparql.DBpedia;
 import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
 import pl.edu.agh.eis.wsswaml.sparql.GeoSparql;
 import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
-import pl.edu.agh.eis.wsswaml.sparql.DBpedia;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -29,6 +31,34 @@ public class SparqlEndpointsTest {
                 "?item wdt:P31 wd:Q1968435.\n" +
                 "?item wdt:P18 ?image.\n" +
                 "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
+                "} ORDER BY ?random\n" +
+                "LIMIT 10";
+
+        EndpointInterface wikidata = new Wikidata();
+        ResultSet results = wikidata.query(queryString);
+//        ResultSetFormatter.out(System.out, results);
+
+        int resultsCounter = 0;
+        for (; results.hasNext(); ) {
+            QuerySolution soln = results.nextSolution();
+
+            Resource image = soln.getResource("image");
+            Literal itemLabel = soln.getLiteral("itemLabel");
+
+            System.out.println(itemLabel + " - " + image);
+            resultsCounter++;
+        }
+        assertEquals(10, resultsCounter);
+    }
+
+    @Test
+    public void wikidataLanguageTest() {
+        // get some food images
+        String queryString = "SELECT ?item ?itemLabel ?image (MD5(CONCAT(str(?item),str(RAND()))) as ?random) WHERE {\n" +
+                "?item wdt:P31 wd:Q1968435.\n" +
+                "?item wdt:P18 ?image.\n" +
+                "SERVICE wikibase:label { bd:serviceParam wikibase:language \""
+                +  Locale.getDefault().getLanguage() +  "\"}\n" +
                 "} ORDER BY ?random\n" +
                 "LIMIT 10";
 
@@ -129,6 +159,36 @@ public class SparqlEndpointsTest {
 
     }
 
+
+    @Test
+    public void DBpediaLanguageTest() {
+        String entityID = "http://www.wikidata.org/entity/Q654493";
+        String queryString = "SELECT DISTINCT  ?cuisine ?abstract \n" +
+                "WHERE {\n" +
+                "    ?cuisine dbo:abstract ?abstract.\n" +
+                "    ?cuisine owl:sameAs <" + entityID + ">.\n" +
+                "    FILTER (langMatches(lang(?abstract), \"" +
+                 Locale.getDefault().getLanguage() +"\"))\n" +
+                "    }";
+
+
+       // /*
+        EndpointInterface dbpedia = new DBpedia();
+        ResultSet results = dbpedia.query(queryString);
+
+        int resultsCounter = 0;
+        for (; results.hasNext(); ) {
+            QuerySolution soln = results.nextSolution();
+            RDFNode  hasValue= soln.get("hasValue");
+            Resource property = soln.getResource("property");
+
+            System.out.println(property + " - " + hasValue);
+            resultsCounter++;
+        }
+        //*/
+        System.out.println(queryString);
+
+    }
 
 
 

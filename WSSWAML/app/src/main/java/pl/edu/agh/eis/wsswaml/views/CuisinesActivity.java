@@ -18,6 +18,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import pl.edu.agh.eis.wsswaml.R;
@@ -55,7 +56,13 @@ public class CuisinesActivity extends AppCompatActivity implements OnItemClickLi
             Literal cuisineLabel = soln.getLiteral("cuisineLabel");
             Resource entityID = soln.getResource("cuisine");
             if(!cuisineLabel.toString().startsWith("Q")){
-                mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[0], image.toString()));
+                if (Locale.getDefault().getLanguage().equals("en")) {
+                    mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[0], image.toString()));
+                } else if(Locale.getDefault().getLanguage().equals("pl")) {
+                    mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[1], image.toString()));
+                } else {
+                    mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString(), image.toString()));
+                }
             }
 
         }

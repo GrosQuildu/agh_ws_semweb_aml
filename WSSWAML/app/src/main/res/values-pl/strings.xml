@@ -12,5 +12,10 @@
     <string name="cuisine_description_placeholder">Ładowanie...</string>
     <string name="not_found">" - nie znaleziono."</string>
     <string name="cuisine">kuchnia</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="title_activity_cuisines">Kuchnie inspiracje</string>
+    <string name="title_activity_restaurants">activity_restaurants</string>
+    <string name="title_activity_user_settings">activity_user_settings</string>
+    <string name="title_activity_cuisine_description">Opis kuchni</string>
 
 </resources>
