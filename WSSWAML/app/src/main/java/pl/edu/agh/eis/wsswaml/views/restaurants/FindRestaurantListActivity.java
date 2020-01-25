@@ -1,5 +1,6 @@
 package pl.edu.agh.eis.wsswaml.views.restaurants;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -17,34 +19,37 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.models.Restaurant;
 
 public class FindRestaurantListActivity extends AppCompatActivity {
 
-    private JSONObject json;
     private List<Restaurant> restaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+//        Button showOnMapButton = findViewById(R.id.show_on_map_button);
+//        showOnMapButton.setOnClickListener();
 
         String restaurants = getIntent().getStringExtra("data");
         GetRestaurants(restaurants);
+    }
+
+    public void showOnMap(View view) {
+        Intent intent = new Intent(this, FindRestaurantMapActivity.class);
+        startActivity(intent);
     }
 
     private void GetRestaurants(String data) {

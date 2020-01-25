@@ -17,5 +17,6 @@
     <string name="title_activity_restaurants">activity_restaurants</string>
     <string name="title_activity_user_settings">activity_user_settings</string>
     <string name="title_activity_cuisine_description">Opis kuchni</string>
+    <string name="show_on_map">Pokaż na mapie</string>
 
 </resources>
