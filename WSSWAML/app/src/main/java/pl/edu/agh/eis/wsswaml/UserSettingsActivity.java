@@ -1,6 +1,7 @@
 package pl.edu.agh.eis.wsswaml;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import pl.edu.agh.eis.wsswaml.data.Cuisines;
+import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
 
 public class UserSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     static String TAG = "UserSettingsActivity";
@@ -36,8 +38,6 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
     private EditText distanceInMetersText;
     private int chosenCuisine = 0;  // TODO - co wyslac, zeby wszystkie typy kuchni dostac?
     private int distance = 1000;
-    private double latitude = 50.013439;
-    private double longitude = 19.881645;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +69,14 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
             if (!value.isEmpty()) {
                 distance = Integer.parseInt((distanceInMetersText.getText().toString()));
             }
-            callApi(distance, chosenCuisine, longitude, latitude);
+
+            Location location = LocalizerServiceConnection.getInstance().getLocation();
+            callApi(distance, chosenCuisine, location.getLongitude(), location.getLatitude());
         });
 
     }
 
-    private int getDistance() {
-        EditText distanceNumber = findViewById(R.id.input_distance);
-        return Integer.parseInt(distanceNumber.getText().toString());
-    }
-
     private void callApi(int radius, int cuisines, double lon, double lat) {
-        //To do:
-        // wstawić prawidłową lokalizację
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
                 .authority("developers.zomato.com")
