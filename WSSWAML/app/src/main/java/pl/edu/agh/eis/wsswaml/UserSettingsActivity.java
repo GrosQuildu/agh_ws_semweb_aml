@@ -1,6 +1,7 @@
 package pl.edu.agh.eis.wsswaml;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,23 +33,19 @@ import pl.edu.agh.eis.wsswaml.data.Cuisines;
 public class UserSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     static String TAG = "UserSettingsActivity";
 
-    private Button findRestaurantButton;
-    private Spinner dropdown;
-    private Toolbar toolbar;
     private EditText distanceInMetersText;
-    private int choosenCuisine = 161;
+    private int chosenCuisine = 0;  // TODO - co wyslac, zeby wszystkie typy kuchni dostac?
     private int distance = 1000;
     private double latitude = 50.013439;
     private double longitude = 19.881645;
-    private JSONArray jsonArray;
-    private TextView chooseDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
 
-        toolbar = findViewById(R.id.toolbar);
+        // setup toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -56,23 +53,23 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
                 .setAction("Action", null).show());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        // input - distance
         distanceInMetersText = findViewById(R.id.input_distance);
-        chooseDistance = findViewById(R.id.label_choose_distance);
 
         // dropdown - cuisine type
-        dropdown = findViewById(R.id.spinner_cuisines_options);
+        Spinner dropdown = findViewById(R.id.spinner_cuisines_options);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Cuisines.getAll());
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
         // find restaurant button
-        findRestaurantButton = findViewById(R.id.btn_ok);
+        Button findRestaurantButton = findViewById(R.id.btn_ok);
         findRestaurantButton.setOnClickListener(view -> {
             String value = distanceInMetersText.getText().toString();
             if (!value.isEmpty()) {
                 distance = Integer.parseInt((distanceInMetersText.getText().toString()));
             }
-            callApi(distance, choosenCuisine, longitude, latitude);
+            callApi(distance, chosenCuisine, longitude, latitude);
         });
 
     }
@@ -85,7 +82,21 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
     private void callApi(int radius, int cuisines, double lon, double lat) {
         //To do:
         // wstawić prawidłową lokalizację
-        String url = "https://developers.zomato.com/api/v2.1/search?entity_id=255&entity_type=city&count=10&lat=" + lat + "&lon=" + lon + "&radius=" + radius + "&cuisines=" + cuisines + "&sort=real_distance";
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority("developers.zomato.com")
+                .appendPath("api")
+                .appendPath("v2.1")
+                .appendPath("search")
+                .appendQueryParameter("entity_id", "255")
+                .appendQueryParameter("entity_type", "city")
+                .appendQueryParameter("count", "10")
+                .appendQueryParameter("lat", Double.toString(lat))
+                .appendQueryParameter("lon", Double.toString(lon))
+                .appendQueryParameter("radius", Integer.toString(radius))
+                .appendQueryParameter("cuisines", Integer.toString(cuisines))
+                .appendQueryParameter("sort", "real_distance");
+        String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null,
@@ -95,7 +106,7 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
                                 JSONArray restaurants = response.getJSONArray("restaurants");
                                 Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
                                 restaurantsIntent.putExtra("data", restaurants.toString());
-                                UserSettingsActivity.this.startActivity(restaurantsIntent);
+//                                UserSettingsActivity.this.startActivity(restaurantsIntent);
                             } catch (JSONException e) {
                                 Toast.makeText(UserSettingsActivity.this, "Error parsing Zomato response", Toast.LENGTH_SHORT).show();
                             }
@@ -119,11 +130,11 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String text = adapterView.getItemAtPosition(position).toString();
         Cuisines cuisine = Cuisines.valueOf(text);
-        this.choosenCuisine = cuisine.getValue();
+        this.chosenCuisine = cuisine.getValue();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        this.chosenCuisine = 0;
     }
 }
