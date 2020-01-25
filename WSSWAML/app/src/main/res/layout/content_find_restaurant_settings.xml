@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".UserSettingsActivity"
+    tools:context=".views.restaurants.FindRestaurantSettingsActivity"
     android:gravity="center"
-    tools:showIn="@layout/activity_user_settings">
+    tools:showIn="@layout/activity_find_restaurant_settings">
 
 
         <LinearLayout

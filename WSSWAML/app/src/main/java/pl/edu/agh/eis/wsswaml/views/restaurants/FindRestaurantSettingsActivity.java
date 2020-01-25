@@ -1,4 +1,4 @@
-package pl.edu.agh.eis.wsswaml;
+package pl.edu.agh.eis.wsswaml.views.restaurants;
 
 import android.content.Intent;
 import android.location.Location;
@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,11 +28,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import pl.edu.agh.eis.wsswaml.HttpSingleton;
+import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.data.Cuisines;
 import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
 
-public class UserSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    static String TAG = "UserSettingsActivity";
+public class FindRestaurantSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    static String TAG = "FindRestaurantSettingsActivity";
 
     private EditText distanceInMetersText;
     private int chosenCuisine = 0;  // TODO - co wyslac, zeby wszystkie typy kuchni dostac?
@@ -42,7 +43,7 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_settings);
+        setContentView(R.layout.activity_find_restaurant_settings);
 
         // setup toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,16 +100,16 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
                             Log.i(TAG, response.toString());
                             try {
                                 JSONArray restaurants = response.getJSONArray("restaurants");
-                                Intent restaurantsIntent = new Intent(UserSettingsActivity.this, RestaurantsActivity.class);
+                                Intent restaurantsIntent = new Intent(FindRestaurantSettingsActivity.this, FindRestaurantListActivity.class);
                                 restaurantsIntent.putExtra("data", restaurants.toString());
-//                                UserSettingsActivity.this.startActivity(restaurantsIntent);
+                                FindRestaurantSettingsActivity.this.startActivity(restaurantsIntent);
                             } catch (JSONException e) {
-                                Toast.makeText(UserSettingsActivity.this, "Error parsing Zomato response", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FindRestaurantSettingsActivity.this, "Error parsing Zomato response", Toast.LENGTH_SHORT).show();
                             }
                         },
                         error -> {
                             Log.e(TAG, error.toString());
-                            Toast.makeText(UserSettingsActivity.this, "Error calling Zomato API", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FindRestaurantSettingsActivity.this, "Error calling Zomato API", Toast.LENGTH_SHORT).show();
                         }
                 ) {
                     @Override

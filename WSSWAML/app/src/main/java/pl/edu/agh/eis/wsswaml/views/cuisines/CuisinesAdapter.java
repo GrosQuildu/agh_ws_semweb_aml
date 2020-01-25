@@ -1,4 +1,4 @@
-package pl.edu.agh.eis.wsswaml.views;
+package pl.edu.agh.eis.wsswaml.views.cuisines;
 
 import android.view.LayoutInflater;
 import android.view.View;

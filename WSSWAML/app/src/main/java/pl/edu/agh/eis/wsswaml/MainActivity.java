@@ -15,7 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
-import pl.edu.agh.eis.wsswaml.views.CuisinesActivity;
+import pl.edu.agh.eis.wsswaml.views.cuisines.CuisinesActivity;
+import pl.edu.agh.eis.wsswaml.views.restaurants.FindRestaurantSettingsActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             if (!localizer.isEnabled()) {
                 localizer.enable(getApplicationContext());
             }
-            Intent userSettingIntent = new Intent(this, UserSettingsActivity.class);
+            Intent userSettingIntent = new Intent(this, FindRestaurantSettingsActivity.class);
             this.startActivity(userSettingIntent);
         });
     }

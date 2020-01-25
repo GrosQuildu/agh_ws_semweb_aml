@@ -1,4 +1,4 @@
-package pl.edu.agh.eis.wsswaml.views;
+package pl.edu.agh.eis.wsswaml.views.cuisines;
 
 import android.os.Bundle;
 import android.widget.TextView;

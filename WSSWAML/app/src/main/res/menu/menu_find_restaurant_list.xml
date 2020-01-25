@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="pl.edu.agh.eis.wsswaml.views.cuisines.CuisinesActivity">
+    tools:context="pl.edu.agh.eis.wsswaml.views.restaurants.FindRestaurantListActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

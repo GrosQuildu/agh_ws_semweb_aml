@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="pl.edu.agh.eis.wsswaml">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -22,7 +21,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".views.restaurants.FindRestaurantListActivity"
+            android:label="@string/title_activity_find_restaurant_list"
+            android:parentActivityName=".views.restaurants.FindRestaurantSettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.FindRestaurantSettingsActivity" />
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,24 +43,24 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".RestaurantsActivity"
+            android:name=".views.restaurants.FindRestaurantMapActivity"
             android:label="@string/title_activity_restaurants"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.edu.agh.eis.wsswaml.UserSettingsActivity" />
+                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.FindRestaurantListActivity" />
         </activity>
         <activity
-            android:name=".views.CuisineDescriptionActivity"
+            android:name=".views.cuisines.CuisineDescriptionActivity"
             android:label="@string/title_activity_user_settings"
-            android:parentActivityName=".views.CuisinesActivity" />
+            android:parentActivityName=".views.cuisines.CuisinesActivity" />
         <activity
-            android:name=".UserSettingsActivity"
+            android:name=".views.restaurants.FindRestaurantSettingsActivity"
             android:label="@string/title_activity_user_settings"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.CuisinesActivity"
+            android:name=".views.cuisines.CuisinesActivity"
             android:label="@string/title_activity_cuisines"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -75,6 +82,7 @@
         <service
             android:name=".localization.LocalizerService"
             android:enabled="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
