@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import pl.edu.agh.eis.wsswaml.data.Cuisines;
 import pl.edu.agh.eis.wsswaml.models.Restaurant;
 
@@ -68,44 +69,34 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
         mQueue = Volley.newRequestQueue(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getCuisines());
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
 
-        findRestaurantButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                distance = Integer.parseInt((distanceInMetersText.getText().toString()));
-                callApi(distance, choosenCuisine, 19.881645, 50.013439);
-            }
+        findRestaurantButton.setOnClickListener(view -> {
+            distance = Integer.parseInt((distanceInMetersText.getText().toString()));
+            callApi(distance, choosenCuisine, 19.881645, 50.013439);
         });
     }
 
-    private List<String>  getCuisines() {
+    private List<String> getCuisines() {
         List<String> items = new ArrayList<String>();
-        for(Cuisines cus : Cuisines.values()){
+        for (Cuisines cus : Cuisines.values()) {
             items.add(cus.toString());
         }
         return items;
     }
 
-    private int getDistance()
-    {
+    private int getDistance() {
         EditText distanceNumber = findViewById(R.id.input_distance);
-        return  Integer.parseInt( distanceNumber.getText().toString() );
+        return Integer.parseInt(distanceNumber.getText().toString());
     }
 
-    private void callApi(int radius, int cuisines, double lon, double lat)
-    {
+    private void callApi(int radius, int cuisines, double lon, double lat) {
         //To do:
         // wstawić prawidłową lokalizację
         String uri = "https://developers.zomato.com/api/v2.1/search?entity_id=255&entity_type=city&count=10&lat=" + lat + "&lon=" + lon + "&radius=" + radius + "&cuisines=" + cuisines + "&sort=real_distance";
@@ -119,7 +110,7 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("Rest Response", response.toString());
-                        try{
+                        try {
 
                             JSONObject object = new JSONObject(response.toString());
                             JSONArray jsonArray = object.getJSONArray("restaurants");
@@ -128,21 +119,20 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
                             restaurantsIntent.putExtra("data", jsonArray.toString());
                             UserSettingsActivity.this.startActivity(restaurantsIntent);
 
-                        }
-                        catch(JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 },
-                new Response.ErrorListener(){
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error){
+                    public void onErrorResponse(VolleyError error) {
                         Log.e("Rest Resoinse", error.toString());
                         TextView distance = findViewById(R.id.label_choose_distance);
-                        distance.setText(error.toString().substring(0,1000));
+                        distance.setText(error.toString().substring(0, 1000));
                     }
                 }
-        ){
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();

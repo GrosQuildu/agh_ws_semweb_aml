@@ -43,7 +43,9 @@ public class LocalizerServiceConnection {
     }
 
     public void disable(Context appContext) {
-        appContext.unbindService(connection);
+        try {
+            appContext.unbindService(connection);
+        } catch (IllegalArgumentException ignore) {}
     }
 
     public boolean isEnabled() {
