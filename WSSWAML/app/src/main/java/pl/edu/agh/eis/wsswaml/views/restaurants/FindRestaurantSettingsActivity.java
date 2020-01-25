@@ -37,7 +37,7 @@ public class FindRestaurantSettingsActivity extends AppCompatActivity implements
     static String TAG = "FindRestaurantSettingsActivity";
 
     private EditText distanceInMetersText;
-    private int chosenCuisine = 0;  // TODO - co wyslac, zeby wszystkie typy kuchni dostac?
+    private int chosenCuisine = -1;
     private int distance = 1000;
 
     @Override
