@@ -1,6 +1,7 @@
 package pl.edu.agh.eis.wsswaml.data;
 
-import pl.edu.agh.eis.wsswaml.models.Cuisine;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Cuisines {
     Arabian (4),
@@ -46,7 +47,8 @@ public enum Cuisines {
     Vietnamese (99);
 
     private int value;
-    private Cuisines(int value)
+
+    Cuisines(int value)
     {
         this.value = value;
     }
@@ -56,4 +58,11 @@ public enum Cuisines {
         return value;
     }
 
+    static public List<String> getAll() {
+        List<String> items = new ArrayList<>();
+        for (Cuisines cus : Cuisines.values()) {
+            items.add(cus.toString());
+        }
+        return items;
+    }
 }
