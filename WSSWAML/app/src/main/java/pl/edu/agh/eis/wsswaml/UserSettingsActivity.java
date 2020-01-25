@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 import pl.edu.agh.eis.wsswaml.data.Cuisines;
@@ -61,6 +62,7 @@ public class UserSettingsActivity extends AppCompatActivity implements AdapterVi
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getCuisines());
         dropdown.setAdapter(adapter);
