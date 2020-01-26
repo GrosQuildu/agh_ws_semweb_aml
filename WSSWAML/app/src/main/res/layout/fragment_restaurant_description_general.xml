@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.restaurants.ui.main.PlaceholderFragment">
+    tools:context=".views.restaurants.ui.main.PlaceholderFragmentBase">
 
     <TextView
         android:id="@+id/section_label"
@@ -22,10 +22,22 @@
 
     <ImageView
         android:id="@+id/imageView2"
+        android:layout_width="143dp"
+        android:layout_height="172dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/error" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="130dp"
-        tools:src="@tools:sample/avatars" />
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="84dp"
+        android:text="uguyguyfg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

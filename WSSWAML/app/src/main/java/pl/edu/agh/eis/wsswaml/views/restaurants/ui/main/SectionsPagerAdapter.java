@@ -34,7 +34,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return PlaceholderFragment.newInstance(position + 1);
+        switch (position) {
+            case 1: return PlaceholderFragmentCosts.newInstance(position, restaurant);
+            case 2: return PlaceholderFragmentReviews.newInstance(position, restaurant);
+            case 3: return PlaceholderFragmentMenu.newInstance(position, restaurant);
+            default: return PlaceholderFragmentGeneral.newInstance(position, restaurant);
+        }
     }
 
     @Nullable

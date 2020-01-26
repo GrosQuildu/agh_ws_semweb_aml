@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import pl.edu.agh.eis.wsswaml.models.Restaurant;
+
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
+    private MutableLiveData<Restaurant> mRestaurant = new MutableLiveData<>();
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
@@ -22,5 +25,9 @@ public class PageViewModel extends ViewModel {
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        mRestaurant.setValue(restaurant);
     }
 }
