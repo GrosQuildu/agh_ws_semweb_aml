@@ -15,12 +15,14 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import pl.edu.agh.eis.wsswaml.HttpSingleton;
 import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.data.Queries;
 import pl.edu.agh.eis.wsswaml.models.Cuisine;
@@ -62,14 +64,18 @@ public class CuisinesListActivity extends AppCompatActivity implements OnItemCli
             Resource image = soln.getResource("image");
             Literal cuisineLabel = soln.getLiteral("cuisineLabel");
             Resource entityID = soln.getResource("cuisine");
+            Cuisine cuisine;
+
+            // small hack - some cuisines in db are bad and have strange names that starts with Q
             if(!cuisineLabel.toString().startsWith("Q")){
                 if (Locale.getDefault().getLanguage().equals("en")) {
-                    mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[0], image.toString()));
+                    cuisine = new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[0], image.toString());
                 } else if(Locale.getDefault().getLanguage().equals("pl")) {
-                    mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[1], image.toString()));
+                    cuisine = new Cuisine(entityID.toString(), cuisineLabel.toString().split("[ @]")[1], image.toString());
                 } else {
-                    mCuisinesList.add(new Cuisine(entityID.toString(), cuisineLabel.toString(), image.toString()));
+                    cuisine = new Cuisine(entityID.toString(), cuisineLabel.toString(), image.toString());
                 }
+                mCuisinesList.add(cuisine);
             }
 
         }

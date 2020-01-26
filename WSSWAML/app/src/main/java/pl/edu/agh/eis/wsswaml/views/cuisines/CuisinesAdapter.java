@@ -17,6 +17,7 @@ import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.models.Cuisine;
 
 public class CuisinesAdapter extends RecyclerView.Adapter<CuisinesAdapter.CuisinesViewHolder> {
+    private static final String TAG = "CuisinesAdapter";
     private List<Cuisine> cuisineList;
     private OnItemClickListener itemClickListener;
 
@@ -35,7 +36,15 @@ public class CuisinesAdapter extends RecyclerView.Adapter<CuisinesAdapter.Cuisin
     @Override
     public void onBindViewHolder(CuisinesViewHolder holder, final int position) {
         Cuisine cuisine = cuisineList.get(position);
-        Picasso.get().load(cuisine.getImage()).into(holder.imageProductImage);
+        if (!cuisine.getImage().isEmpty()) {
+            Picasso.get()
+                    .load(cuisine.getImage())
+                    .placeholder(R.drawable.unknown)
+                    .error(R.drawable.error)
+                    .into(holder.imageProductImage);
+        } else {
+            holder.imageProductImage.setImageResource(R.drawable.unknown);
+        }
         holder.txtProductName.setText(cuisine.getName());
         holder.bind(cuisine, itemClickListener);
     }

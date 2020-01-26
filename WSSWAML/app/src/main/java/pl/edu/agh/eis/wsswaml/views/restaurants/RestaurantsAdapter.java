@@ -37,9 +37,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public void onBindViewHolder(RestaurantsViewHolder holder, final int position) {
         Restaurant restaurant = restaurantList.get(position);
         if (!restaurant.photoUrl.isEmpty()) {
-            try {
-                Picasso.get().load(restaurant.photoUrl).into(holder.imageProductImage);
-            } catch (Exception ignore) {}
+            Picasso.get()
+                    .load(restaurant.photoUrl)
+                    .placeholder(R.drawable.unknown)
+                    .error(R.drawable.error)
+                    .into(holder.imageProductImage);
+        } else {
+            holder.imageProductImage.setImageResource(R.drawable.unknown);
         }
         holder.txtProductName.setText(restaurant.name);
         holder.bind(restaurant, itemClickListener);

@@ -56,6 +56,7 @@ public class RestaurantsFindSettingsActivity extends AppCompatActivity implement
 
         // input - distance
         distanceInMetersText = findViewById(R.id.input_distance);
+        distanceInMetersText.setText(Integer.toString(distance));
 
         // dropdown - cuisine type
         Spinner dropdown = findViewById(R.id.spinner_cuisines_options);
