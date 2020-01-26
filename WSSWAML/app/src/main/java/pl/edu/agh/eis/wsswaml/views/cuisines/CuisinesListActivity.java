@@ -27,7 +27,7 @@ import pl.edu.agh.eis.wsswaml.models.Cuisine;
 import pl.edu.agh.eis.wsswaml.sparql.EndpointInterface;
 import pl.edu.agh.eis.wsswaml.sparql.Wikidata;
 
-public class CuisinesActivity extends AppCompatActivity implements OnItemClickListener {
+public class CuisinesListActivity extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView cuisinesRecyclerView;
     private CuisinesAdapter mAdapter;
     private List<Cuisine> mCuisinesList;
@@ -44,10 +44,17 @@ public class CuisinesActivity extends AppCompatActivity implements OnItemClickLi
         cuisinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mCuisinesList = new ArrayList<>();
+        mAdapter = new CuisinesAdapter(mCuisinesList, this);
+        cuisinesRecyclerView.setAdapter(mAdapter);
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        // sparql - get cuisines
         EndpointInterface wikidata = new Wikidata();
         ResultSet results = wikidata.query(Queries.allCuisines());
-
 
         for (; results.hasNext(); ) {
             QuerySolution soln = results.nextSolution();
@@ -66,14 +73,6 @@ public class CuisinesActivity extends AppCompatActivity implements OnItemClickLi
             }
 
         }
-
-        mAdapter = new CuisinesAdapter(mCuisinesList, this);
-        cuisinesRecyclerView.setAdapter(mAdapter);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

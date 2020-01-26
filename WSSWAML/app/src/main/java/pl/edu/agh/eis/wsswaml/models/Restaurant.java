@@ -14,6 +14,8 @@ public class Restaurant implements Parcelable {
     public String timings;
     public String photoUrl;
     public String photos;
+    public double rating;
+    public String ratingText;
     public Location location;
 
     public Restaurant() {
@@ -29,6 +31,8 @@ public class Restaurant implements Parcelable {
         timings = in.readString();
         photoUrl = in.readString();
         photos = in.readString();
+        rating = in.readDouble();
+        ratingText = in.readString();
         location = in.readParcelable(Location.class.getClassLoader());
     }
 
@@ -42,6 +46,8 @@ public class Restaurant implements Parcelable {
         dest.writeString(timings);
         dest.writeString(photoUrl);
         dest.writeString(photos);
+        dest.writeDouble(rating);
+        dest.writeString(ratingText);
         dest.writeParcelable(location, flags);
     }
 

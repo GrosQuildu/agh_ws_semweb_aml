@@ -33,8 +33,8 @@ import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.data.Cuisines;
 import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
 
-public class FindRestaurantSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    static String TAG = "FindRestaurantSettingsActivity";
+public class RestaurantsFindSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    static String TAG = "RestaurantsFindSettingsActivity";
 
     private EditText distanceInMetersText;
     private int chosenCuisine = -1;
@@ -101,16 +101,16 @@ public class FindRestaurantSettingsActivity extends AppCompatActivity implements
                             Log.i(TAG, response.toString());
                             try {
                                 JSONArray restaurants = response.getJSONArray("restaurants");
-                                Intent restaurantsIntent = new Intent(FindRestaurantSettingsActivity.this, FindRestaurantListActivity.class);
+                                Intent restaurantsIntent = new Intent(RestaurantsFindSettingsActivity.this, RestaurantsListActivity.class);
                                 restaurantsIntent.putExtra("data", restaurants.toString());
-                                FindRestaurantSettingsActivity.this.startActivity(restaurantsIntent);
+                                RestaurantsFindSettingsActivity.this.startActivity(restaurantsIntent);
                             } catch (JSONException e) {
-                                Toast.makeText(FindRestaurantSettingsActivity.this, "Error parsing Zomato response", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RestaurantsFindSettingsActivity.this, "Error parsing Zomato response", Toast.LENGTH_SHORT).show();
                             }
                         },
                         error -> {
                             Log.e(TAG, error.toString());
-                            Toast.makeText(FindRestaurantSettingsActivity.this, "Error calling Zomato API", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RestaurantsFindSettingsActivity.this, "Error calling Zomato API", Toast.LENGTH_SHORT).show();
                         }
                 ) {
                     @Override

@@ -28,7 +28,7 @@ public class CuisinesAdapter extends RecyclerView.Adapter<CuisinesAdapter.Cuisin
     @Override
     @NonNull
     public CuisinesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View CuisinesViewHolder = LayoutInflater.from(parent.getContext()).inflate(R.layout.cuisine_card, parent, false);
+        View CuisinesViewHolder = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_cuisine, parent, false);
         return new CuisinesViewHolder(CuisinesViewHolder);
     }
 

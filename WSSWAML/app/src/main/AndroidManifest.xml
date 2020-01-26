@@ -22,13 +22,22 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".views.restaurants.FindRestaurantListActivity"
-            android:label="@string/title_activity_find_restaurant_list"
-            android:parentActivityName=".views.restaurants.FindRestaurantSettingsActivity"
+            android:name=".views.restaurants.RestaurantDescriptionActivity"
+            android:label="@string/title_activity_restaurant_description"
+            android:parentActivityName=".views.restaurants.RestaurantsListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.FindRestaurantSettingsActivity" />
+                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.RestaurantsListActivity" />
+        </activity>
+        <activity
+            android:name=".views.restaurants.RestaurantsListActivity"
+            android:label="@string/title_activity_find_restaurant_list"
+            android:parentActivityName=".views.restaurants.RestaurantsFindSettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.RestaurantsFindSettingsActivity" />
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -43,24 +52,25 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".views.restaurants.FindRestaurantMapActivity"
+            android:name=".views.restaurants.RestaurantsMapActivity"
             android:label="@string/title_activity_restaurants"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.FindRestaurantListActivity" />
+                android:value="pl.edu.agh.eis.wsswaml.views.restaurants.RestaurantsListActivity" />
         </activity>
         <activity
             android:name=".views.cuisines.CuisineDescriptionActivity"
-            android:label="@string/title_activity_user_settings"
-            android:parentActivityName=".views.cuisines.CuisinesActivity" />
+            android:label="@string/title_activity_cuisine_description"
+            android:parentActivityName=".views.cuisines.CuisinesListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.restaurants.FindRestaurantSettingsActivity"
+            android:name=".views.restaurants.RestaurantsFindSettingsActivity"
             android:label="@string/title_activity_user_settings"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.cuisines.CuisinesActivity"
+            android:name=".views.cuisines.CuisinesListActivity"
             android:label="@string/title_activity_cuisines"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
