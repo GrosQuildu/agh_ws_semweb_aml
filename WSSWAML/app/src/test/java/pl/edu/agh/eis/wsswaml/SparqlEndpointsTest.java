@@ -190,6 +190,36 @@ public class SparqlEndpointsTest {
 
     }
 
+    @Test
+    public void wikidataDishes() {
+        // get dishes and their ingredients
+        String queryString = "SELECT ?dish ?dishLabel  ?dishDescription ?dishIngr ?dishIngrLabel WHERE {\n" +
+                "?dish wdt:P361 wd:Q756020.\n" +    //dish is part of  polish cuisine
+                "?dish wdt:P527 ?dishIngr.\n" +         // dish is made out of ingredients;  P527 = has part
+                "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\"}\n" +
+                "}\n" +
+                "ORDER BY ?dishLabel";
+
+        EndpointInterface wikidata = new Wikidata();
+        ResultSet results = wikidata.query(queryString);
+//        ResultSetFormatter.out(System.out, results);
+
+        int resultsCounter = 0;
+        for (; results.hasNext(); ) {
+            QuerySolution soln = results.nextSolution();
+
+            Literal dishLabel = soln.getLiteral("dishLabel");
+            Literal dishDescription = soln.getLiteral("dishDescription");
+            Literal ingrLabel = soln.getLiteral("dishIngrLabel");
+
+            System.out.println(dishLabel + " - " + dishDescription + " - " + ingrLabel);
+            resultsCounter++;
+        }
+        assertEquals(18, resultsCounter);
+    }
+
+
+
 
 
 }
