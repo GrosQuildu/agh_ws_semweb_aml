@@ -18,5 +18,9 @@
     <string name="title_activity_user_settings">activity_user_settings</string>
     <string name="title_activity_cuisine_description">Opis kuchni</string>
     <string name="show_on_map">Pokaż na mapie</string>
+    <string name="restaurant_tab_text_4">Menu</string>
+    <string name="restaurant_tab_text_1">Restauracja</string>
+    <string name="restaurant_tab_text_2">Ceny</string>
+    <string name="restaurant_tab_text_3">Opinie</string>
 
 </resources>

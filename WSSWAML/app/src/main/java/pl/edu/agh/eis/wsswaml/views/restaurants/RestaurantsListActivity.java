@@ -55,7 +55,7 @@ public class RestaurantsListActivity extends AppCompatActivity implements OnItem
     @Override
     public void onItemClicked(View view, Restaurant restaurant) {
         Intent restaurantDescriptionIntent = new Intent(this, RestaurantDescriptionActivity.class);
-        restaurantDescriptionIntent.putExtra("RestaurantEntityID", restaurant.id);
+        restaurantDescriptionIntent.putExtra("restaurant", restaurant);
         this.startActivity(restaurantDescriptionIntent);
     }
 
