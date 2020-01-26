@@ -34,7 +34,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <include layout="@layout/content_find_restaurant_settings" />
+    <include layout="@layout/content_restaurants_find_settings" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

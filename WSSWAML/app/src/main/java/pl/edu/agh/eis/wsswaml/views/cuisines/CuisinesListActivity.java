@@ -35,7 +35,7 @@ public class CuisinesListActivity extends AppCompatActivity implements OnItemCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cuisines);
+        setContentView(R.layout.activity_cuisines_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

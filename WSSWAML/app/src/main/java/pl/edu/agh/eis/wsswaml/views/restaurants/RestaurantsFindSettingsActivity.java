@@ -43,7 +43,7 @@ public class RestaurantsFindSettingsActivity extends AppCompatActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_restaurant_settings);
+        setContentView(R.layout.activity_restaurants_find_settings);
 
         // setup toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);

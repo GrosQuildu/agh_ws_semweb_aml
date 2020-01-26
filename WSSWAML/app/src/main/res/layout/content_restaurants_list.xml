@@ -9,7 +9,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".views.restaurants.RestaurantsListActivity"
-    tools:showIn="@layout/activity_find_restaurant_list">
+    tools:showIn="@layout/activity_restaurants_list">
 
     <Button
         android:id="@+id/show_on_map_button"

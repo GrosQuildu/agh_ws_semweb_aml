@@ -32,7 +32,7 @@ public class RestaurantsListActivity extends AppCompatActivity implements OnItem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_restaurant_list);
+        setContentView(R.layout.activity_restaurants_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
