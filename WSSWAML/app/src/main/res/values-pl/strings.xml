@@ -22,5 +22,6 @@
     <string name="restaurant_tab_text_1">Restauracja</string>
     <string name="restaurant_tab_text_2">Ceny</string>
     <string name="restaurant_tab_text_3">Opinie</string>
+    <string name="restaurant_cost_text">Average cost:</string>
 
 </resources>

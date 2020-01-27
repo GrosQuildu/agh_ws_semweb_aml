@@ -48,6 +48,9 @@ public class PlaceholderFragmentGeneral extends PlaceholderFragmentBase {
         TextView restaurantAddress = root.findViewById(R.id.restaurantAddress);
         restaurantAddress.setText(restaurant.address);
 
+        TextView restaurantCuisines = root.findViewById(R.id.restaurantCuisines);
+        restaurantCuisines.setText(restaurant.cuisines);
+
         return root;
     }
 }

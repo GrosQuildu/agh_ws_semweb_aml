@@ -99,7 +99,7 @@ public class RestaurantsFindSettingsActivity extends AppCompatActivity implement
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null,
                         response -> {
-                            Log.i(TAG, response.toString());
+//                            Log.i(TAG, response.toString());
                             try {
                                 JSONArray restaurants = response.getJSONArray("restaurants");
                                 Intent restaurantsIntent = new Intent(RestaurantsFindSettingsActivity.this, RestaurantsListActivity.class);

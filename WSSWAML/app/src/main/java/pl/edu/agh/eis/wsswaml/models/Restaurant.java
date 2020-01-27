@@ -25,6 +25,7 @@ public class Restaurant implements Parcelable {
     // tab 3
     public double rating;
     public String ratingText;
+    public int votes;
     public List<String> reviews;
 
     // tab 4
@@ -48,6 +49,7 @@ public class Restaurant implements Parcelable {
         photos = in.readString();
         averageCost = in.readInt();
         priceRange = in.readInt();
+        votes = in.readInt();
         rating = in.readDouble();
         ratingText = in.readString();
         reviews = in.createStringArrayList();
@@ -67,6 +69,7 @@ public class Restaurant implements Parcelable {
         dest.writeString(photos);
         dest.writeInt(averageCost);
         dest.writeInt(priceRange);
+        dest.writeInt(votes);
         dest.writeDouble(rating);
         dest.writeString(ratingText);
         dest.writeStringList(reviews);
