@@ -23,8 +23,11 @@ public class PlaceholderFragmentCosts extends PlaceholderFragmentBase {
             Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_restaurant_description_costs, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, textView::setText);
+
+        Restaurant restaurant = pageViewModel.getRestaurant();
+        TextView textView = root.findViewById(R.id.restaurantCosts);
+        textView.setText("Id of restaurant (TODO add costs):" + restaurant.id);
+
         return root;
     }
 }

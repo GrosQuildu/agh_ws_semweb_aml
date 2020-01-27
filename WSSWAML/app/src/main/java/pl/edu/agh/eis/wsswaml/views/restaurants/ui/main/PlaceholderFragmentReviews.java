@@ -22,9 +22,8 @@ public class PlaceholderFragmentReviews extends PlaceholderFragmentBase {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_restaurant_description_general, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, textView::setText);
+        View root = inflater.inflate(R.layout.fragment_restaurant_description_reviews, container, false);
+
         return root;
     }
 }

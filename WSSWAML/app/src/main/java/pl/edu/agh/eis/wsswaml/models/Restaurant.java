@@ -4,8 +4,11 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 
 public class Restaurant implements Parcelable {
+    // tab 1
     public String id;
     public String name;
     public String url;
@@ -14,8 +17,20 @@ public class Restaurant implements Parcelable {
     public String timings;
     public String photoUrl;
     public String photos;
+
+    // tab 2
+    public int averageCost;
+    public int priceRange;
+
+    // tab 3
     public double rating;
     public String ratingText;
+    public List<String> reviews;
+
+    // tab 4
+    public List<String> menu;
+
+    // for localization and sparql
     public Location location;
 
     public Restaurant() {
@@ -31,8 +46,12 @@ public class Restaurant implements Parcelable {
         timings = in.readString();
         photoUrl = in.readString();
         photos = in.readString();
+        averageCost = in.readInt();
+        priceRange = in.readInt();
         rating = in.readDouble();
         ratingText = in.readString();
+        reviews = in.createStringArrayList();
+        menu = in.createStringArrayList();
         location = in.readParcelable(Location.class.getClassLoader());
     }
 
@@ -46,8 +65,12 @@ public class Restaurant implements Parcelable {
         dest.writeString(timings);
         dest.writeString(photoUrl);
         dest.writeString(photos);
+        dest.writeInt(averageCost);
+        dest.writeInt(priceRange);
         dest.writeDouble(rating);
         dest.writeString(ratingText);
+        dest.writeStringList(reviews);
+        dest.writeStringList(menu);
         dest.writeParcelable(location, flags);
     }
 
