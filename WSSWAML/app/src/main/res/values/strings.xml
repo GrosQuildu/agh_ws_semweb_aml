@@ -12,11 +12,11 @@
     <string name="cuisine_placeholder">"Cuisine -> "</string>
     <string name="not_found"> - not found.</string>
     <string name="title_activity_cuisines">Cuisine Inspiration</string>
-    <string name="title_activity_restaurants">activity_restaurants</string>
-    <string name="title_activity_user_settings">activity_user_settings</string>
-    <string name="title_activity_cuisine_description">CuisineDescription</string>
+    <string name="title_activity_restaurants">Restaurants</string>
+    <string name="title_activity_user_settings">Search for a restaurant</string>
+    <string name="title_activity_cuisine_description">Cuisine Description</string>
     <string name="cuisine">cuisine</string>
-    <string name="title_activity_find_restaurant_list">FindRestaurantListActivity</string>
+    <string name="title_activity_find_restaurant_list">Restaurants List</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
