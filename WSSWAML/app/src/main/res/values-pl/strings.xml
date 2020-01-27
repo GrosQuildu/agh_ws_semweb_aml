@@ -26,5 +26,6 @@
     <string name="title_activity_find_restaurant_list">Lista restauracji</string>
     <string name="title_activity_restaurant_description">Opis restauracji</string>
     <string name="for_two_people">Dla dwojga: </string>
+    <string name="error_back_button">Spróbuj ponownie</string>
 
 </resources>

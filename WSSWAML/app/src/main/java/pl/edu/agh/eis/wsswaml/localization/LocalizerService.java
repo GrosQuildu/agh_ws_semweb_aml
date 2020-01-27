@@ -17,6 +17,10 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import pl.edu.agh.eis.wsswaml.ErrorActivity;
+import pl.edu.agh.eis.wsswaml.views.cuisines.CuisineDescriptionActivity;
+import pl.edu.agh.eis.wsswaml.views.restaurants.RestaurantsFindSettingsActivity;
+
 public class LocalizerService extends Service implements LocationListener {
     private static final String TAG = "LocalizerService";
     private static final int ONE_MINUTE = 1000 * 60;
@@ -41,6 +45,10 @@ public class LocalizerService extends Service implements LocationListener {
 
         Location gpsLocation = requestUpdatesFromProvider(LocationManager.GPS_PROVIDER);
         Location networkLocation = requestUpdatesFromProvider(LocationManager.NETWORK_PROVIDER);
+
+        if(gpsLocation == null && networkLocation == null) {
+            onProvidersNotExists();
+        }
 
         if (isNewLocationBetter(gpsLocation, networkLocation))
             currentLocation = gpsLocation;
@@ -140,11 +148,16 @@ public class LocalizerService extends Service implements LocationListener {
             mLocationManager.requestLocationUpdates(provider, LocalizerService.RECORD_FREQ, 0, this);
             location = mLocationManager.getLastKnownLocation(provider);
         } else {
-            //onProviderNotExists();
-            Log.e(TAG, "No provider");
+            Log.e(TAG, "No provider: " + provider);
             return null;
         }
         return location;
+    }
+
+    private void onProvidersNotExists() {
+        Toast.makeText(LocalizerService.this, "No localization providers", Toast.LENGTH_SHORT).show();
+        Intent errorIntent = new Intent(this, ErrorActivity.class);
+        this.startActivity(errorIntent);
     }
 
     @Override

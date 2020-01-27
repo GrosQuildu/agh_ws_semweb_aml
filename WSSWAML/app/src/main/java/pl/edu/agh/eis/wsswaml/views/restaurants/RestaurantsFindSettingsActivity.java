@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import pl.edu.agh.eis.wsswaml.ErrorActivity;
 import pl.edu.agh.eis.wsswaml.HttpSingleton;
 import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.data.Cuisines;
@@ -73,12 +74,19 @@ public class RestaurantsFindSettingsActivity extends AppCompatActivity implement
             }
 
             Location location = LocalizerServiceConnection.getInstance().getLocation();
+            if (location == null) {
+                Toast.makeText(this, "No localization", Toast.LENGTH_LONG).show();
+                Intent errorIntent = new Intent(this, ErrorActivity.class);
+                this.startActivity(errorIntent);
+            }
             callApi(distance, chosenCuisine, location.getLongitude(), location.getLatitude());
         });
 
     }
 
     private void callApi(int radius, int cuisines, double lon, double lat) {
+        HttpSingleton.getInstance(getApplicationContext()).waitForNetworkConnection();
+
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
                 .authority("developers.zomato.com")
@@ -93,13 +101,12 @@ public class RestaurantsFindSettingsActivity extends AppCompatActivity implement
                 .appendQueryParameter("radius", Integer.toString(radius))
                 .appendQueryParameter("sort", "real_distance");
         if (cuisines != -1)
-                builder.appendQueryParameter("cuisines", Integer.toString(cuisines));
+            builder.appendQueryParameter("cuisines", Integer.toString(cuisines));
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null,
                         response -> {
-//                            Log.i(TAG, response.toString());
                             try {
                                 JSONArray restaurants = response.getJSONArray("restaurants");
                                 Intent restaurantsIntent = new Intent(RestaurantsFindSettingsActivity.this, RestaurantsListActivity.class);
@@ -114,13 +121,13 @@ public class RestaurantsFindSettingsActivity extends AppCompatActivity implement
                             Toast.makeText(RestaurantsFindSettingsActivity.this, "Error calling Zomato API", Toast.LENGTH_SHORT).show();
                         }
                 ) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("user-key", "4e6fa5534bfc1fbe48829a826a096a0a");
-                        return params;
-                    }
-                };
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user-key", "4e6fa5534bfc1fbe48829a826a096a0a");
+                return params;
+            }
+        };
         HttpSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 

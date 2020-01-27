@@ -10,36 +10,49 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/audiowide"
-        android:text="@string/application_name"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:layout_margin="10dp"
-        android:contentDescription="@string/food"
-        android:src="@drawable/restaurant_image" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/find_cuisine_button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="@string/find_cuisine" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/audiowide"
+                android:text="@string/application_name"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/find_restaurant_button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:text="@string/find_restaurant" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="300dp"
+                android:layout_height="202dp"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/food"
+                android:src="@drawable/restaurant_image" />
+
+            <Button
+                android:id="@+id/find_cuisine_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="@string/find_cuisine" />
+
+            <Button
+                android:id="@+id/find_restaurant_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:text="@string/find_restaurant" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

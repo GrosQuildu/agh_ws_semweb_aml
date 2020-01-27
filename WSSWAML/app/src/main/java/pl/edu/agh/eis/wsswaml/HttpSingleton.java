@@ -1,8 +1,12 @@
 package pl.edu.agh.eis.wsswaml;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.LruCache;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,6 +45,24 @@ public class HttpSingleton {
             instance = new HttpSingleton(context);
         }
         return instance;
+    }
+
+    public boolean haveNetworkConnection() {
+        ConnectivityManager cm =
+                (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+    }
+
+    public void waitForNetworkConnection() {
+        if (!haveNetworkConnection()) {
+            Toast.makeText(ctx, "No internet", Toast.LENGTH_LONG).show();
+            Intent errorIntent = new Intent(ctx, ErrorActivity.class);
+            errorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            ctx.startActivity(errorIntent);
+        }
     }
 
     public RequestQueue getRequestQueue() {

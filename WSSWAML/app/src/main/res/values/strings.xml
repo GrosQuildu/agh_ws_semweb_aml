@@ -115,4 +115,5 @@
     <string name="restaurant_tab_text_3">Reviews</string>
     <string name="restaurant_cost_text">Average cost:</string>
     <string name="for_two_people">For two people: </string>
+    <string name="error_back_button">Try again</string>
 </resources>

@@ -4,16 +4,20 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import mobi.seus.org.apache.http.HttpStatus;
 import pl.edu.agh.eis.wsswaml.localization.LocalizerServiceConnection;
 import pl.edu.agh.eis.wsswaml.views.cuisines.CuisinesListActivity;
 import pl.edu.agh.eis.wsswaml.views.restaurants.RestaurantsFindSettingsActivity;
@@ -75,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             Intent userSettingIntent = new Intent(this, RestaurantsFindSettingsActivity.class);
             this.startActivity(userSettingIntent);
         });
+
+        HttpSingleton.getInstance(getApplicationContext()).waitForNetworkConnection();
     }
 
     @Override

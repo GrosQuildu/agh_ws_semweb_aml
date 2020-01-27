@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import pl.edu.agh.eis.wsswaml.HttpSingleton;
 import pl.edu.agh.eis.wsswaml.R;
 import pl.edu.agh.eis.wsswaml.data.Queries;
 import pl.edu.agh.eis.wsswaml.models.Cuisine;
@@ -51,6 +52,8 @@ public class CuisinesListActivity extends AppCompatActivity implements OnItemCli
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        HttpSingleton.getInstance(getApplicationContext()).waitForNetworkConnection();
 
         // sparql - get cuisines
         EndpointInterface wikidata = new Wikidata();
