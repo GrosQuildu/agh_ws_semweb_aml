@@ -21,9 +21,10 @@
     <string name="restaurant_tab_text_4">Menu</string>
     <string name="restaurant_tab_text_1">Restauracja</string>
     <string name="restaurant_tab_text_2">Ceny</string>
-    <string name="restaurant_tab_text_3">Opinie</string>
-    <string name="restaurant_cost_text">Średnie ceny:</string>
+    <string name="restaurant_tab_text_3">Ocena</string>
+    <string name="restaurant_cost_text">Średnia cena: </string>
     <string name="title_activity_find_restaurant_list">Lista restauracji</string>
     <string name="title_activity_restaurant_description">Opis restauracji</string>
+    <string name="for_two_people">Dla dwojga: </string>
 
 </resources>

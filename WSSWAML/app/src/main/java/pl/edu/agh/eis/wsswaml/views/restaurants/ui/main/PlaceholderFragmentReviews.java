@@ -23,6 +23,13 @@ public class PlaceholderFragmentReviews extends PlaceholderFragmentBase {
             Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_restaurant_description_reviews, container, false);
+        Restaurant restaurant = pageViewModel.getRestaurant();
+
+        TextView textView = root.findViewById(R.id.textView2);
+        //textView.setText("Hello");
+
+        textView.setText((Double.toString(restaurant.rating)));
+        textView.append("/5");
 
         return root;
     }

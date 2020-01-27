@@ -17,6 +17,7 @@
     <string name="title_activity_cuisine_description">Cuisine Description</string>
     <string name="cuisine">cuisine</string>
     <string name="title_activity_find_restaurant_list">Restaurants List</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -107,10 +108,11 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="show_on_map">Show on map</string>
-    <string name="title_activity_restaurant_description">RestaurantDescriptionActivity</string>
+    <string name="title_activity_restaurant_description">Restaurant Description</string>
     <string name="restaurant_tab_text_1">Restaurant</string>
     <string name="restaurant_tab_text_2">Costs</string>
     <string name="restaurant_tab_text_4">Menu</string>
     <string name="restaurant_tab_text_3">Reviews</string>
     <string name="restaurant_cost_text">Average cost:</string>
+    <string name="for_two_people">For two people: </string>
 </resources>
