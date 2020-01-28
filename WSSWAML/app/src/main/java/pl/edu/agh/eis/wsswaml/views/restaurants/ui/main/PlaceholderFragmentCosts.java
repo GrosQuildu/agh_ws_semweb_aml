@@ -26,10 +26,11 @@ public class PlaceholderFragmentCosts extends PlaceholderFragmentBase {
 
         Restaurant restaurant = pageViewModel.getRestaurant();
         TextView textView = root.findViewById(R.id.restaurantAverageCost);
-        //textView.setText("Hello");
         textView.setText(R.string.for_two_people);
         textView.append(" ");
         textView.append((Integer.toString(restaurant.averageCost)));
+        textView.append(" ");
+        textView.append(restaurant.currency);
         return root;
     }
 }

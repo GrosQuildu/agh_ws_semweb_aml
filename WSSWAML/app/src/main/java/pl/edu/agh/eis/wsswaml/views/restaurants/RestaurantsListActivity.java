@@ -91,6 +91,7 @@ public class RestaurantsListActivity extends AppCompatActivity implements OnItem
 
                 restaurant.averageCost = restaurantJson.getInt("average_cost_for_two");
                 restaurant.priceRange = restaurantJson.getInt("price_range");
+                restaurant.currency = restaurantJson.getString("currency");
 
                 restaurant.rating = restaurantJson.getJSONObject("user_rating").getDouble("aggregate_rating");
                 restaurant.ratingText = restaurantJson.getJSONObject("user_rating").getString("rating_text");

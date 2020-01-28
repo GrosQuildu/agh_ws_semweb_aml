@@ -1,5 +1,7 @@
 package pl.edu.agh.eis.wsswaml.views.restaurants.ui.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +44,14 @@ public class PlaceholderFragmentGeneral extends PlaceholderFragmentBase {
             restaurantImage.setImageResource(R.drawable.unknown);
         }
 
-        TextView restaurantUrl = root.findViewById(R.id.restaurantUrl);
-        restaurantUrl.setText(restaurant.url);
+        if (restaurant.url != null && !restaurant.url.isEmpty() && restaurant.url.startsWith("http"))
+        restaurantImage.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse(restaurant.url));
+            startActivity(intent);
+        });
 
         TextView restaurantAddress = root.findViewById(R.id.restaurantAddress);
         restaurantAddress.setText(restaurant.address);
