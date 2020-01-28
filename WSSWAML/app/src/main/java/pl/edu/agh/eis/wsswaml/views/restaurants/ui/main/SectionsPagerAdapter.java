@@ -22,7 +22,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.restaurant_tab_text_1,
-            R.string.restaurant_tab_text_2, R.string.restaurant_tab_text_3, R.string.restaurant_tab_text_4};
+            R.string.restaurant_tab_text_2, R.string.restaurant_tab_text_3 /*,R.string.restaurant_tab_text_4 */ };
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm, Restaurant restaurant) {
@@ -37,7 +37,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 1: return PlaceholderFragmentCosts.newInstance(position, restaurant);
             case 2: return PlaceholderFragmentReviews.newInstance(position, restaurant);
-            case 3: return PlaceholderFragmentMenu.newInstance(position, restaurant);
+//            case 3: return PlaceholderFragmentMenu.newInstance(position, restaurant);
             default: return PlaceholderFragmentGeneral.newInstance(position, restaurant);
         }
     }
